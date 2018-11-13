@@ -3,7 +3,7 @@
 <head>
 	<title>AEHTER X</title>
 </head>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 <link href="https://fonts.googleapis.com/css?family=KoHo" rel="stylesheet"> 
 <style type="text/css">
 	body {
@@ -16,7 +16,7 @@
 		color: white;
 	}
 	.navbtn {
-		right: 0;
+		right: 0vw;
 		display: inline-flex;
 		padding: 1.5vh;
 		justify-content: center;
@@ -25,6 +25,7 @@
 		vertical-align: middle;
 		cursor: pointer;
 		z-index: 6;
+		transition: 2s;
 
 	}
 	.navbtn img {
@@ -41,9 +42,30 @@
   		pointer-events: none;
   		transition: 1s;
 	}
+	.loader {
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		transition: 1s;
+		background: #2f3640;
+		z-index: 1000;
+		    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 1.5s;
+	}
+	.loader img {
+		  animation-name: spin;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  padding: 10px;
+  filter: invert(1);
+	}
 	.back {
 		font-size: 4vh;
-		position: fixed;
+		position:relative;
+		float: left;
 		z-index: -1;
 		opacity: 0;
 		transition: 1s;
@@ -75,8 +97,33 @@
 	.expand {
 		height: 100vh;
 	}
+	.drawer {
+		z-index: 6;
+		right: -22vw;
+		height: 100vh;
+		width: 22vw;
+		position: fixed;
+		background: #3D4752;
+		transition: 2s;
+	}
+
+	@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
 </style>
-<body>
+<body onload="done()">
+	<div class="loader">
+		<img src="AXLogo.png" height="30vh"><br>
+		<p style="" >The AetherX Experience is loading...</p>
+	</div>
+	<div class="drawer">
+		
+	</div>
 	<div class="bbs">
 		&nbsp;
 	</div>
@@ -93,7 +140,7 @@
 		<i class="fas fa-angle-down"></i>
 	</div>
 </body>
-<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
 	/* eslint-disable */
@@ -104,13 +151,19 @@
 	function retDrawer() {
 		$('.bbs').css("opacity", "0");
 		$('.bbs').css("pointer-events", "none");
+		$('.drawer').css("right", "-22vw");
+		$('.navbtn').css("right", "0vw");
 		x = 0
 	}
-
+function done() {
+			$('.loader').delay(5000).css("opacity", "0").css("pointer-events", "none");
+}
 	$('.navbtn').click(function(){
 		if (x == 0) {
 		$('.bbs').css("opacity", ".5");
 		$('.bbs').css("pointer-events", "auto");
+		$('.drawer').css("right", "0");
+		$('.navbtn').css("right", "22vw");
 		x = 1
 	} else {
 		retDrawer();
